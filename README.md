@@ -1,4 +1,4 @@
-# Home Assistant Community Add-on: SSH & Web Terminal
+# Home Assistant Community Add-on: HA vim environment
 
 [![GitHub Release][releases-shield]][releases]
 ![Project Stage][project-stage-shield]

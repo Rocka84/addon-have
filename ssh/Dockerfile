@@ -12,7 +12,7 @@ ENV TERM="xterm-256color"
 COPY requirements.txt /tmp/
 
 # Setup base
-ARG BUILD_ARCH=amd64
+ARG BUILD_ARCH=armv7
 # hadolint ignore=DL3003,DL3042
 RUN \
     apk add --no-cache --virtual .build-dependencies \
@@ -28,6 +28,10 @@ RUN \
         zlib-dev=1.2.12-r3 \
     \
     && apk add --no-cache \
+        # openssl \
+        # openssl-dev \
+        libressl \
+        libressl-dev \
         ack=3.5.0-r1 \
         alsa-plugins-pulse=1.2.7.1-r0 \
         alsa-utils=1.2.7-r1 \
@@ -70,7 +74,10 @@ RUN \
         zsh-autosuggestions=0.7.0-r0 \
         zsh-syntax-highlighting=0.7.1-r2 \
         zsh=5.8.1-r4 \
+        neovim \
+        neovim-doc \
     \
+    && pip3 install neovim neovim-remote \
     && git clone --depth 1 \
         https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh \
     \
@@ -137,6 +144,11 @@ RUN \
     chmod 0750 /etc/sudo.conf \
     && chmod 0750 -R /etc/sudoers.d \
     && chmod 0640 /etc/sudoers.d
+
+RUN git clone https://github.com/Rocka84/Powerprompt.git /root/powerprompt \
+    && apk add byobu \
+    && /root/dotfiles/setup.sh \
+    && /root/.config/nvim/init_plugins.sh
 
 # Build arguments
 ARG BUILD_ARCH

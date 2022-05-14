@@ -1,0 +1,1 @@
+call SpmSetProject("scripts", "")

@@ -1,10 +1,9 @@
 ---
-name: SSH & Web Terminal
+name: HA Vim ENvironment
 version: dev
-slug: ssh
-description: SSH & Web Terminal access to your Home Assistant instance
-url: https://github.com/hassio-addons/addon-ssh
-codenotary: codenotary@frenck.dev
+slug: haven
+description: SSH & Web Terminal access to your Home Assistant instance with neovim
+url: https://github.com/rocka84/addon-have
 advanced: true
 startup: services
 ingress: true
