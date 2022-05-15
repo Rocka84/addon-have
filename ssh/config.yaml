@@ -2,7 +2,7 @@
 name: HA Vim ENvironment
 version: dev
 slug: haven
-description: SSH & Web Terminal access to your Home Assistant instance with neovim
+description: Use neovim and a Terminal via SSH & Web
 url: https://github.com/rocka84/addon-have
 advanced: true
 startup: services
@@ -11,7 +11,7 @@ ingress_port: 0
 ingress_stream: true
 init: false
 panel_icon: mdi:console
-panel_title: Terminal
+panel_title: HAVEN
 homeassistant: 0.92.0b2
 arch:
   - aarch64
@@ -63,7 +63,7 @@ options:
     allow_agent_forwarding: false
     allow_remote_port_forwarding: false
     allow_tcp_forwarding: false
-  zsh: true
+  zsh: false
   share_sessions: false
   packages: []
   init_commands: []

@@ -1,13 +1,12 @@
-# Home Assistant Community Add-on: SSH & Web Terminal
+# Home Assistant Community Add-on: HA Vim ENvironment
 
-This add-on allows you to log in to your Home Assistant instance using
-SSH or a Web Terminal, giving you to access your folders and
-also includes a command-line tool to do things like restart, update,
-and check your instance.
+This add-on provides an environment to use neovim directly inside of
+your Home Assistant instance, provided using SSH or a Web Terminal.
+It also gives you access your folders and includes a command-line tool
+to do things like restart, update, and check your instance.
 
-This is an enhanced version of the provided
-[SSH add-on by Home Assistant][hass-ssh] and focusses on security,
-usability, flexibility and also provides access using a web interface.
+This is addon is based on [SSH & Web Terminal by Home Assistant Community Add-ons][hass-ssh-web]
+which itself is an enhanced version of [SSH add-on by Home Assistant][hass-ssh].
 
 ## WARNING
 
@@ -305,6 +304,7 @@ SOFTWARE.
 [frenck]: https://github.com/frenck
 [github-ssh]: https://help.github.com/articles/connecting-to-github-with-ssh/
 [hass-ssh]: https://github.com/home-assistant/addons/tree/master/ssh
+[hass-ssh-web]: https://github.com/hassio-addons/addon-ssh
 [issue]: https://github.com/hassio-addons/addon-ssh/issues
 [ohmyzsh]: http://ohmyz.sh/
 [openssh]: https://www.openssh.com/
