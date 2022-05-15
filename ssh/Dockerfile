@@ -147,6 +147,7 @@ RUN \
 
 RUN git clone https://github.com/Rocka84/Powerprompt.git /root/powerprompt \
     && apk add byobu \
+    && byobu-enable \
     && /root/dotfiles/setup.sh \
     && /root/.config/nvim/init_plugins.sh
 

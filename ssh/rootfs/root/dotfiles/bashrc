@@ -124,6 +124,7 @@ export EDITOR="$(which nvim 2>/dev/null)"
 [ -z "$EDITOR" ] && export EDITOR="$(which vim 2>/dev/null)"
 export BUSYBOX="$(which busybox 2>/dev/null)"
 export PATH=$PATH:~/scripts
+which nvim >/dev/null 2>&1 && alias vim=nvim
 
 # manage ssh-agent and hook into ssh command
 ssh_hooks_inc="$HOME/.ssh_hooks.inc.sh"
