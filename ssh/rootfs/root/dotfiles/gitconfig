@@ -1,0 +1,21 @@
+[core]
+	editor = /usr/bin/nvim
+	excludesfile = $HOME/.gitignore_global
+
+[user]
+	name = Rocka84
+	email = f.dillmeier@gmail.com
+
+[alias]
+    qamend = commit --amend --no-edit
+	tree = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white). %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
+
+[log]
+	abbrevCommit = true
+    date = short
+[push]
+	default = simple
+[pretty]
+	nicerlog = format:%w(190,0,28)%C(yellow)%h %Cblue%>(12)%ad %Cgreen%<(5)%aN%Cred%d %Creset%s
+[format]
+	pretty = nicerlog

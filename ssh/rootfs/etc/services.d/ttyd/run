@@ -23,10 +23,12 @@ options+=(-i hassio)
 ingress_port=$(bashio::addon.ingress_port)
 options+=(-p "${ingress_port}")
 
-ttyd_command=(tmux -u new -A -s homeassistant zsh -l)
-if ! bashio::config.true "zsh"; then
-    ttyd_command=(tmux -u new -A -s homeassistant bash -l)
-fi
+# ttyd_command=(tmux -u new -A -s homeassistant zsh -l)
+# if ! bashio::config.true "zsh"; then
+#     ttyd_command=(tmux -u new -A -s homeassistant bash -l)
+# fi
+# ttyd_command=(/usr/local/bin/haven_byobu.sh)
+ttyd_command=(byobu)
 
 # Change working directory
 cd /root || bashio::exit.nok 'Unable to change working directory'

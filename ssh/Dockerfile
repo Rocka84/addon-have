@@ -132,6 +132,16 @@ RUN \
 # Copy root filesystem
 COPY rootfs /
 
+RUN apk add --no-cache \
+        neovim=0.7.0-r0 \
+        neovim-doc=0.7.0-r0 \
+        byobu=5.133-r1 \
+    && git clone https://github.com/Rocka84/Powerprompt.git /root/powerprompt \
+    && pip3 install neovim neovim-remote \
+    && byobu-enable \
+    && /root/dotfiles/setup.sh \
+    && /root/.config/nvim/init_plugins.sh
+
 # Ensure right permissions
 RUN \
     chmod 0750 /etc/sudo.conf \
@@ -154,7 +164,7 @@ LABEL \
     io.hass.arch="${BUILD_ARCH}" \
     io.hass.type="addon" \
     io.hass.version=${BUILD_VERSION} \
-    maintainer="Franck Nijhof <frenck@addons.community>" \
+    maintainer="Fabian Dillmeier <f.dillmeier@gmail.com>" \
     org.opencontainers.image.title="${BUILD_NAME}" \
     org.opencontainers.image.description="${BUILD_DESCRIPTION}" \
     org.opencontainers.image.vendor="Home Assistant Community Add-ons" \

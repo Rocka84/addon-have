@@ -1,0 +1,137 @@
+[[ $- != *i* ]] && return
+
+if [[ "$LANG" != en_* ]]; then
+    export LANG="en_GB.UTF-8"
+fi
+export LANGUAGE=$LANG
+export LC_ALL=$LANG
+
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+shopt -s expand_aliases
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+[ "$TERM" == "tmux-256color" ] && export TERM="screen-256color"
+
+# check color support
+if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+	color_prompt=yes
+elif [[ "$TERM" = *color ]]; then
+	color_prompt=yes
+else
+	color_prompt=
+fi
+
+if [ "$color_prompt" != yes ]; then
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+elif [ -f "$HOME/powerprompt/prompt.sh" ]; then
+    PS1='$('"$HOME"'/powerprompt/prompt.sh "$?")'
+else
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w \$\[\033[00m\] '
+fi
+export PS1
+
+alias ls="ls --group-directories-first"
+# enable color support of ls and also add handy aliases
+if [ "$color_prompt" == "yes" ] && [ -x /usr/bin/dircolors ]; then
+    if test -r ~/.dircolors; then
+        eval "$(dircolors -b ~/.dircolors)"
+    else
+        eval "$(dircolors -b)"
+    fi
+    alias ls='ls --group-directories-first --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+unset color_prompt
+
+# colored GCC warnings and errors
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# some more ls aliases
+alias ll='ls -l'
+alias la='ls -A'
+alias l='ls -CF'
+
+# git aliases
+# alias g='git status '
+alias ga='git add '
+alias gd='git diff '
+alias gdh="git diff HEAD "
+alias gc='git commit '
+alias go='git checkout '
+alias gp='git pull '
+alias gpu='git push origin $(git rev-parse --abbrev-ref HEAD)'
+
+function g() {
+    if [ "$#" == "0" ]; then
+        git status
+    else
+        git "$@"
+    fi
+}
+
+# docker aliases
+alias dkex="docker exec -it "
+alias dkip="docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "
+alias dkps="docker ps "
+alias dcup="docker-compose up -d"
+alias dcupf="docker-compose up"
+alias dcupl="docker-compose up -d; docker-compose logs -f"
+alias dcdown="docker-compose down"
+alias dclogs="docker-compose logs -f "
+
+# misc aliases
+alias cd..="cd .."
+alias hcd='cd ~/homeassistant/'
+alias less='/usr/bin/less -r'
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# enable programmable completion features
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+export PAGER=less
+export EDITOR="$(which nvim 2>/dev/null)"
+[ -z "$EDITOR" ] && export EDITOR="$(which vim 2>/dev/null)"
+export BUSYBOX="$(which busybox 2>/dev/null)"
+export PATH=$PATH:~/scripts
+which nvim >/dev/null 2>&1 && alias vim=nvim
+
+# manage ssh-agent and hook into ssh command
+ssh_hooks_inc="$HOME/.ssh_hooks.inc.sh"
+[ -f "$ssh_hooks_inc" ] && source "$ssh_hooks_inc" >/dev/null
+unset ssh_hooks_inc
+
+which thefuck >/dev/null 2>&1 && eval "$(thefuck --alias)"
+
+[ -f "$HOME/.bashrc.local" ] && source "$HOME/.bashrc.local"
+
